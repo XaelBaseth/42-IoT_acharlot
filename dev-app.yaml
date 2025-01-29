@@ -1,0 +1,38 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: dev-app
+  namespace: dev
+spec:
+  selector:
+    app: dev-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8888
+  type: LoadBalancer  # Change to NodePort if you use k3d
+
+---
+
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev-app
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dev-app
+  template:
+    metadata:
+      labels:
+        app: dev-app
+    spec:
+      containers:
+        - name: dev-app
+          image: wil42/playground:v1  # Or v2 depending on the version you want
+          ports:
+            - containerPort: 8888
