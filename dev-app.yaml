@@ -11,7 +11,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8888
-  type: LoadBalancer  # Change to NodePort if you use k3d
+  type: LoadBalancer
 
 ---
 
@@ -33,6 +33,6 @@ spec:
     spec:
       containers:
         - name: dev-app
-          image: wil42/playground:v1  # Or v2 depending on the version you want
+          image: wil42/playground:v2
           ports:
             - containerPort: 8888
